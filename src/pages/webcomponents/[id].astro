@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Main from '../../component/Main.astro'
+
+export function getStaticPaths() {
+  return [
+    {params: {id: 'clifford'}},
+    {params: {id: 'rover'}},
+    {params: {id: 'spot'}},
+  ];
+}
+
+const { id } = Astro.params;
+---
+
+<Layout>
+  <Main>
+    <div>いい子だ、{id}！</div>
+	</Main>
+</Layout>
