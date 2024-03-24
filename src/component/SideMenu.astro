@@ -1,28 +1,30 @@
 ---
-import { SideMenuItem} from './Button/SideMenuItem.tsx'
-const links = [{
-  id: "be595fd7-2d5c-4999-8f9e-0aeb7d457d3f",
-  title: "First",
-}, {
-  id: "f69462a7-ff09-4fd7-8267-5a57a62e8d6b",
-  title: "Second",
-}, {
-  id: "3292c37a0-ed51-44ff-ac87-bac74b968f9b",
-  title: "Third",
-}]
+import { SideMenuItem } from './Button/SideMenuItem.tsx'
+const links = [
+  {
+    id: 'be595fd7-2d5c-4999-8f9e-0aeb7d457d3f',
+    title: 'First',
+  },
+  {
+    id: 'f69462a7-ff09-4fd7-8267-5a57a62e8d6b',
+    title: 'Second',
+  },
+  {
+    id: '3292c37a0-ed51-44ff-ac87-bac74b968f9b',
+    title: 'Third',
+  },
+]
 ---
 
-<div class="bg-base-200 p-5 min-w-40">
-  <div class="text-center">
-    Components List
-  </div>
+<div class='bg-base-200 p-5 min-w-40'>
+  <div class='text-center'>Components List</div>
   <ul>
     <li>
-      {links.map((l) => {
-        return (
-          <SideMenuItem title={l.title} id={l.id} client:load></SideMenuItem>
-        )
-      })}
+      {
+        links.map((l) => {
+          return <SideMenuItem title={l.title} id={l.id} client:load />
+        })
+      }
     </li>
   </ul>
 </div>

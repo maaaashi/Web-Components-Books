@@ -1,15 +1,15 @@
 import { useEffect, useRef, type FC, type ReactNode } from 'react'
 
 type Props = {
-    src: string;
-    code: string;
+  src: string
+  code: string
 }
 
 export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
-    const iframeRef = useRef<HTMLIFrameElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
-    useEffect(() => {
-      const iframeContent = `
+  useEffect(() => {
+    const iframeContent = `
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -22,19 +22,19 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
             ${code}
         </body>
         </html>
-      `;
-  
-      if (iframeRef.current) {
-        iframeRef.current.srcdoc = iframeContent;
-      }
-    }, []);
+      `
+
+    if (iframeRef.current) {
+      iframeRef.current.srcdoc = iframeContent
+    }
+  }, [])
 
   return (
     <iframe
       ref={iframeRef}
-      sandbox="allow-scripts"
+      sandbox='allow-scripts'
       style={{ width: '100%', height: '500px' }}
-      title="Sandboxed Component"
+      title='Sandboxed Component'
     ></iframe>
   )
 }
