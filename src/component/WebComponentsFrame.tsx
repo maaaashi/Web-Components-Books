@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC, type ReactNode } from 'react'
+import { useEffect, useRef, type FC } from 'react'
 
 type Props = {
   src: string
