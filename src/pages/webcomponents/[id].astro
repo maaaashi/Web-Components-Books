@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro'
 import Main from '../../component/Main.astro'
 import { WebComponentsFrame } from '../../component/WebComponentsFrame'
-import { Heading3 } from '../../component/Heading3.tsx'
 
 // const { id } = Astro.params;
 const title = 'Country Flag Component'
@@ -13,10 +12,10 @@ const code = '<country-flag code="US"></country-flag>'
 <Layout>
   <Main>
     <h2 class='font-bold text-lg'>{title}</h2>
-    <Heading3>Usage</Heading3>
+    <WebComponentsFrame client:load src={src} code={code} />
+    <h3 class='font-bold text-lg'>Usage</h3>
     <pre class='bg-base-200 p-4'>{code}</pre>
-    <Heading3>Attributes</Heading3>
-    <table class='w-full'>
+    <table class='table'>
       <thead>
         <tr>
           <th>Name</th>
@@ -36,7 +35,7 @@ const code = '<country-flag code="US"></country-flag>'
           <td>size</td>
           <td>size</td>
           <td>64</td>
-          <td>24</td>
+          <td>64</td>
         </tr>
         <tr>
           <td>type</td>
@@ -46,7 +45,5 @@ const code = '<country-flag code="US"></country-flag>'
         </tr>
       </tbody>
     </table>
-    <Heading3>Preview</Heading3>
-    <WebComponentsFrame client:load src={src} code={code} />
   </Main>
 </Layout>
