@@ -30,11 +30,45 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
   }, [])
 
   return (
-    <iframe
-      ref={iframeRef}
-      sandbox='allow-scripts'
-      style={{ width: '100%', height: '500px' }}
-      title='Sandboxed Component'
-    ></iframe>
+    <>
+      <iframe
+        ref={iframeRef}
+        sandbox='allow-scripts'
+        style={{ width: '100%', height: '500px' }}
+        title='Sandboxed Component'
+      ></iframe>
+      <h3 className='font-bold text-lg'>Usage</h3>
+      <pre className='bg-base-200 p-4'>{code}</pre>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>code</td>
+            <td>country code</td>
+            <td>JP</td>
+            <td>US</td>
+          </tr>
+          <tr>
+            <td>size</td>
+            <td>size</td>
+            <td>64</td>
+            <td>64</td>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>draw type</td>
+            <td>flat</td>
+            <td>flat</td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   )
 }
