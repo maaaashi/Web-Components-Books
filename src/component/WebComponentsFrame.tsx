@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC } from 'react'
+import { useEffect, useRef, type FC, useState } from 'react'
 
 type Props = {
   src: string
@@ -7,6 +7,22 @@ type Props = {
 
 export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  const [attributes, setAttr] = useState([
+    {
+      name: 'code',
+      description: 'country code',
+      default: 'JP',
+      controls: 'US',
+    },
+    { name: 'size', description: 'size', default: '64', controls: '64' },
+    {
+      name: 'type',
+      description: 'draw type',
+      default: 'flat',
+      controls: 'flat',
+    },
+  ])
 
   useEffect(() => {
     const iframeContent = `
@@ -49,24 +65,14 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>code</td>
-            <td>country code</td>
-            <td>JP</td>
-            <td>US</td>
-          </tr>
-          <tr>
-            <td>size</td>
-            <td>size</td>
-            <td>64</td>
-            <td>64</td>
-          </tr>
-          <tr>
-            <td>type</td>
-            <td>draw type</td>
-            <td>flat</td>
-            <td>flat</td>
-          </tr>
+          {attributes.map((attr, index) => (
+            <tr key={index}>
+              <td>{attr.name}</td>
+              <td>{attr.description}</td>
+              <td>{attr.default}</td>
+              <td>{attr.controls}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>
