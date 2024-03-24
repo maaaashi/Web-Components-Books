@@ -3,14 +3,20 @@ import Layout from '../../layouts/Layout.astro';
 import Main from '../../component/Main.astro'
 import { WebComponentsFrame } from '../../component/WebComponentsFrame';
 
-const { id } = Astro.params;
+// const { id } = Astro.params;
+const title = 'Country Flag Component';
 const src = 'https://maaaashi.github.io/country-flag/bundle.js';
 const code = '<country-flag code="TH"></country-flag>';
 ---
 
 <Layout>
   <Main>
-    <div>{id}</div>
+    <h2 class="font-bold text-lg">{title}</h2>
+    <h3 class="font-bold text-lg">Usage</h3>
+    <pre class="bg-base-200">
+      {code}
+    </pre>
+    <h3 class="font-bold text-lg">Preview</h3>
     <WebComponentsFrame client:load src={src} code={code} />
 	</Main>
 </Layout>
