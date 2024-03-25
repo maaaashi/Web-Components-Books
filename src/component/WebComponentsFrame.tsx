@@ -1,4 +1,5 @@
 import { useEffect, useRef, type FC, useState } from 'react'
+import { Attr } from '../domain/Attr'
 
 type Props = {
   src: string
@@ -8,23 +9,20 @@ type Props = {
 export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
-  const [attributes, setAttr] = useState([
-    {
-      name: 'code',
-      description: 'country code',
-      default: 'JP',
-      controls: 'US',
-    },
-    { name: 'size', description: 'size', default: '64', controls: '64' },
-    {
-      name: 'type',
-      description: 'draw type',
-      default: 'flat',
-      controls: 'flat',
-    },
+  const [attributes, setAttr] = useState<Attr[]>([
+    Attr.create('code', 'country code', 'JP', 'US'),
+    Attr.create('size', 'size', '64', '64'),
+    Attr.create('type', 'draw type', 'flat', 'flat'),
   ])
 
   useEffect(() => {
+    const component = 'country-flag'
+    const attrString = attributes
+      .map((attr) => `${attr.name}="${attr.controls}"`)
+      .join(' ')
+
+    const customTagHTML = `<${component} ${attrString}></${component}>`
+
     const iframeContent = `
         <!DOCTYPE html>
         <html lang="en">
@@ -35,7 +33,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
           <script type="text/javascript" src="${src}" defer="defer"></script>
         </head>
         <body>
-            ${code}
+          ${customTagHTML}
         </body>
         </html>
       `
@@ -43,7 +41,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
     if (iframeRef.current) {
       iframeRef.current.srcdoc = iframeContent
     }
-  }, [])
+  }, [attributes])
 
   return (
     <>
@@ -69,7 +67,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
             <tr key={index}>
               <td>{attr.name}</td>
               <td>{attr.description}</td>
-              <td>{attr.default}</td>
+              <td>{attr.defaultValue}</td>
               <td>{attr.controls}</td>
             </tr>
           ))}
