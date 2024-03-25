@@ -8,12 +8,16 @@ type Props = {
 
 export const WebComponentsFrame: FC<Props> = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const src = 'https://maaaashi.github.io/country-flag/bundle.js'
-  const component = new WebComponent('Country Flag Component', 'country-flag', [
-    Attr.create('code', 'country code', 'JP', 'US'),
-    Attr.create('size', 'size', '64', '64'),
-    Attr.create('type', 'draw type', 'flat', 'flat'),
-  ])
+  const component = new WebComponent(
+    'Country Flag Component',
+    'country-flag',
+    [
+      Attr.create('code', 'country code', 'JP', 'US'),
+      Attr.create('size', 'size', '64', '32'),
+      Attr.create('type', 'draw type', 'flat', ''),
+    ],
+    'https://maaaashi.github.io/country-flag/bundle.js',
+  )
 
   useEffect(() => {
     const iframeContent = `
@@ -23,7 +27,7 @@ export const WebComponentsFrame: FC<Props> = () => {
           <meta charset="UTF-8">
           <title>Sandboxed Component</title>
           <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src *; img-src *;">
-          <script type="text/javascript" src="${src}" defer="defer"></script>
+          <script type="text/javascript" src="${component.src}" defer="defer"></script>
         </head>
         <body>
           ${component.createHTMLElement()}
@@ -38,6 +42,7 @@ export const WebComponentsFrame: FC<Props> = () => {
 
   return (
     <>
+      <h2 className='font-bold text-lg'>{component.name}</h2>
       <iframe
         ref={iframeRef}
         sandbox='allow-scripts'

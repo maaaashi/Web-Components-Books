@@ -6,15 +6,28 @@ export class WebComponent {
     private _name: string,
     private _tagName: string,
     private _attributes: Attr[],
-    private _children?: ReactNode[],
+    private _src: string,
+    private _children?: ReactNode,
   ) {}
 
   createHTMLElement() {
     const attrString = this._attributes
-      .map((attr) => `${attr.name}="${attr.controls}"`)
+      .map((attr) => {
+        if (attr.controls) return `${attr.name}="${attr.controls}"`
+        return ''
+      })
+      .filter((attr) => attr)
       .join(' ')
 
-    return `<${this._tagName} ${attrString}>${this._children}</${this._tagName}>`
+    return `<${this._tagName} ${attrString}>${this._children || ''}</${this._tagName}>`
+  }
+
+  get name() {
+    return this._name
+  }
+
+  get src() {
+    return this._src
   }
 
   get attributes() {

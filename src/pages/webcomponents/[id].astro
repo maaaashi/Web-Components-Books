@@ -4,18 +4,10 @@ import Main from '../../component/Main.astro'
 import { WebComponentsFrame } from '../../component/WebComponentsFrame'
 
 const { id } = Astro.params
-const title = 'Country Flag Component'
 ---
 
 <Layout>
   <Main>
-    {
-      id && (
-        <>
-          <h2 class='font-bold text-lg'>{title}</h2>
-          <WebComponentsFrame client:load id={id} />
-        </>
-      )
-    }
+    {id && <WebComponentsFrame client:load id={id} />}
   </Main>
 </Layout>
