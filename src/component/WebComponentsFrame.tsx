@@ -1,28 +1,21 @@
-import { useEffect, useRef, type FC, useState } from 'react'
+import { useEffect, useRef, type FC } from 'react'
+import { WebComponent } from '../domain/Component'
 import { Attr } from '../domain/Attr'
 
 type Props = {
-  src: string
-  code: string
+  id: string
 }
 
-export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
+export const WebComponentsFrame: FC<Props> = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
-
-  const [attributes, setAttr] = useState<Attr[]>([
+  const src = 'https://maaaashi.github.io/country-flag/bundle.js'
+  const component = new WebComponent('Country Flag Component', 'country-flag', [
     Attr.create('code', 'country code', 'JP', 'US'),
     Attr.create('size', 'size', '64', '64'),
     Attr.create('type', 'draw type', 'flat', 'flat'),
   ])
 
   useEffect(() => {
-    const component = 'country-flag'
-    const attrString = attributes
-      .map((attr) => `${attr.name}="${attr.controls}"`)
-      .join(' ')
-
-    const customTagHTML = `<${component} ${attrString}></${component}>`
-
     const iframeContent = `
         <!DOCTYPE html>
         <html lang="en">
@@ -33,7 +26,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
           <script type="text/javascript" src="${src}" defer="defer"></script>
         </head>
         <body>
-          ${customTagHTML}
+          ${component.createHTMLElement()}
         </body>
         </html>
       `
@@ -41,7 +34,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
     if (iframeRef.current) {
       iframeRef.current.srcdoc = iframeContent
     }
-  }, [attributes])
+  }, [])
 
   return (
     <>
@@ -52,7 +45,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
         title='Sandboxed Component'
       ></iframe>
       <h3 className='font-bold text-lg'>Usage</h3>
-      <pre className='bg-base-200 p-4'>{code}</pre>
+      <pre className='bg-base-200 p-4'>{component.createHTMLElement()}</pre>
       <table className='table'>
         <thead>
           <tr>
@@ -63,7 +56,7 @@ export const WebComponentsFrame: FC<Props> = ({ src, code }) => {
           </tr>
         </thead>
         <tbody>
-          {attributes.map((attr, index) => (
+          {component.attributes.map((attr, index) => (
             <tr key={index}>
               <td>{attr.name}</td>
               <td>{attr.description}</td>
