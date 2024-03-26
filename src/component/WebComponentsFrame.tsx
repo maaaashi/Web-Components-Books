@@ -71,7 +71,12 @@ export const WebComponentsFrame: FC<Props> = () => {
               <td>{attr.name}</td>
               <td>{attr.description}</td>
               <td>{attr.defaultValue}</td>
-              <td>{attr.control.value}</td>
+              <td>
+                <input
+                  type={attr.control.inputType()}
+                  value={attr.control.value}
+                />
+              </td>
             </tr>
           ))}
         </tbody>

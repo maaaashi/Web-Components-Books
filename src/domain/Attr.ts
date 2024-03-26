@@ -4,6 +4,12 @@ export class Control<T> {
   get value() {
     return this._value
   }
+
+  inputType() {
+    if (typeof this._value === 'string') return 'text'
+    if (typeof this._value === 'number') return 'number'
+    return 'text'
+  }
 }
 
 export class Attr<T> {
