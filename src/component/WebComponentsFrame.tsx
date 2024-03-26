@@ -1,6 +1,6 @@
 import { useEffect, useRef, type FC } from 'react'
 import { WebComponent } from '../domain/Component'
-import { Attr } from '../domain/Attr'
+import { Attr, Control } from '../domain/Attr'
 
 type Props = {
   id: string
@@ -12,9 +12,14 @@ export const WebComponentsFrame: FC<Props> = () => {
     'Country Flag Component',
     'country-flag',
     [
-      Attr.create('code', 'country code', 'JP', 'US'),
-      Attr.create('size', 'size', '64', '32'),
-      Attr.create('type', 'draw type', 'flat', ''),
+      new Attr('code', 'country code', 'JP', new Control('US')),
+      new Attr('size', 'size', 32, new Control(32)),
+      new Attr(
+        'type',
+        'draw type',
+        'flat',
+        new Control<'flat' | 'shiny' | null>(null),
+      ),
     ],
     'https://maaaashi.github.io/country-flag/bundle.js',
   )
@@ -66,7 +71,7 @@ export const WebComponentsFrame: FC<Props> = () => {
               <td>{attr.name}</td>
               <td>{attr.description}</td>
               <td>{attr.defaultValue}</td>
-              <td>{attr.controls}</td>
+              <td>{attr.control.value}</td>
             </tr>
           ))}
         </tbody>

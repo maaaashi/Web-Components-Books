@@ -1,13 +1,17 @@
-export class Control {
-  constructor() {}
+export class Control<T> {
+  constructor(private _value: T) {}
+
+  get value() {
+    return this._value
+  }
 }
 
-export class Attr {
+export class Attr<T> {
   constructor(
     private _name: string,
     private _description: string,
-    private _defaultValue: string,
-    private _controls: string,
+    private _defaultValue: string | number | boolean | null | undefined,
+    private _control: Control<T>,
   ) {}
 
   get name() {
@@ -22,11 +26,7 @@ export class Attr {
     return this._defaultValue
   }
 
-  get controls() {
-    return this._controls
-  }
-
-  static create(...args: string[]) {
-    return new Attr(args[0], args[1], args[2], args[3])
+  get control() {
+    return this._control
   }
 }

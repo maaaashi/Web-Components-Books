@@ -5,7 +5,7 @@ export class WebComponent {
   constructor(
     private _name: string,
     private _tagName: string,
-    private _attributes: Attr[],
+    private _attributes: Attr<any>[],
     private _src: string,
     private _children?: ReactNode,
   ) {}
@@ -13,7 +13,7 @@ export class WebComponent {
   createHTMLElement() {
     const attrString = this._attributes
       .map((attr) => {
-        if (attr.controls) return `${attr.name}="${attr.controls}"`
+        if (attr.control.value) return `${attr.name}="${attr.control.value}"`
         return ''
       })
       .filter((attr) => attr)
