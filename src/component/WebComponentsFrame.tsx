@@ -10,6 +10,8 @@ export const WebComponentsFrame: FC<Props> = () => {
   const [component, setComponent] = useState<WebComponent>(
     new WebComponent(
       'Country Flag Component',
+      'A web component to display a country flag.',
+      'maaaashi',
       'country-flag',
       [
         new Attr('code', 'country code', 'JP', new Control('US')),
@@ -51,7 +53,13 @@ export const WebComponentsFrame: FC<Props> = () => {
 
   return (
     <>
-      <h2 className='font-bold text-lg'>{component.name}</h2>
+      <section className='flex items-center gap-3'>
+        <h2 className='font-bold text-lg'>{component.name}</h2>
+        <div>by {component.publisher}</div>
+      </section>
+      <section>
+        <p>{component.description}</p>
+      </section>
       <div className='relative'>
         <div className='w-40 absolute right-0 top-3'>
           <label className='cursor-pointer grid place-items-center'>

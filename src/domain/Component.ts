@@ -4,6 +4,8 @@ import { Attr, Control } from './Attr'
 export class WebComponent {
   constructor(
     private _name: string,
+    private _description: string,
+    private _publisher: string,
     private _tagName: string,
     private _attributes: Attr<any>[],
     private _src: string,
@@ -26,6 +28,14 @@ export class WebComponent {
     return this._name
   }
 
+  get description() {
+    return this._description
+  }
+
+  get publisher() {
+    return this._publisher
+  }
+
   get tagnName() {
     return this._tagName
   }
@@ -45,6 +55,8 @@ export class WebComponent {
   ): WebComponent {
     const newComponent = new WebComponent(
       prev.name,
+      prev.description,
+      prev.publisher,
       prev.tagnName,
       prev.attributes.map((a) =>
         a.name === attrName
