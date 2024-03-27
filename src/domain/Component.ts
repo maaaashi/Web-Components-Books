@@ -26,6 +26,10 @@ export class WebComponent {
     return this._name
   }
 
+  get tagnName() {
+    return this._tagName
+  }
+
   get src() {
     return this._src
   }
@@ -40,8 +44,8 @@ export class WebComponent {
     attrValue: string,
   ): WebComponent {
     const newComponent = new WebComponent(
-      'Country Flag Component',
-      'country-flag',
+      prev.name,
+      prev.tagnName,
       prev.attributes.map((a) =>
         a.name === attrName
           ? new Attr(
@@ -52,7 +56,7 @@ export class WebComponent {
             )
           : a,
       ),
-      'https://maaaashi.github.io/country-flag/bundle.js',
+      prev.src,
     )
     return newComponent
   }
