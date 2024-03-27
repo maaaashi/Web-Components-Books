@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC } from 'react'
+import { useEffect, useRef, type FC, useState } from 'react'
 import { WebComponent } from '../domain/Component'
 import { Attr, Control } from '../domain/Attr'
 
@@ -7,22 +7,24 @@ type Props = {
 }
 
 export const WebComponentsFrame: FC<Props> = () => {
-  const iframeRef = useRef<HTMLIFrameElement>(null)
-  const component = new WebComponent(
-    'Country Flag Component',
-    'country-flag',
-    [
-      new Attr('code', 'country code', 'JP', new Control('US')),
-      new Attr('size', 'size', 32, new Control(32)),
-      new Attr(
-        'type',
-        'draw type',
-        'flat',
-        new Control<'flat' | 'shiny' | null>(null),
-      ),
-    ],
-    'https://maaaashi.github.io/country-flag/bundle.js',
+  const [component, setComponent] = useState<WebComponent>(
+    new WebComponent(
+      'Country Flag Component',
+      'country-flag',
+      [
+        new Attr('code', 'country code', 'JP', new Control('US')),
+        new Attr('size', '16 | 24 | 32 | 48 | 64', 32, new Control(32)),
+        new Attr(
+          'type',
+          'flat | shiny',
+          'flat',
+          new Control<'flat' | 'shiny' | ''>(''),
+        ),
+      ],
+      'https://maaaashi.github.io/country-flag/bundle.js',
+    ),
   )
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     const iframeContent = `
@@ -43,7 +45,7 @@ export const WebComponentsFrame: FC<Props> = () => {
     if (iframeRef.current) {
       iframeRef.current.srcdoc = iframeContent
     }
-  }, [])
+  }, [component])
 
   return (
     <>
@@ -73,8 +75,37 @@ export const WebComponentsFrame: FC<Props> = () => {
               <td>{attr.defaultValue}</td>
               <td>
                 <input
-                  type={attr.control.inputType()}
-                  value={attr.control.value}
+                  className='input input-bordered'
+                  type={attr.control.type}
+                  value={attr.control.value || ''}
+                  onChange={(e) => {
+                    setComponent((prev) => {
+                      const newComponent = new WebComponent(
+                        'Country Flag Component',
+                        'country-flag',
+                        prev.attributes.map((a) =>
+                          a.name === attr.name
+                            ? new Attr(
+                                a.name,
+                                a.description,
+                                a.defaultValue,
+                                new Control(
+                                  a.control.type === 'number'
+                                    ? +e.target.value
+                                    : e.target.value,
+                                ),
+                              )
+                            : a,
+                        ),
+                        'https://maaaashi.github.io/country-flag/bundle.js',
+                      )
+                      console.log(
+                        typeof newComponent.attributes[1].control.value,
+                      )
+                      return newComponent
+                    })
+                    attr.control.value = e.target.value
+                  }}
                 />
               </td>
             </tr>

@@ -1,14 +1,20 @@
 export class Control<T> {
-  constructor(private _value: T) {}
+  private _type: string
+
+  constructor(private _value: T) {
+    this._type = typeof _value
+  }
 
   get value() {
     return this._value
   }
 
-  inputType() {
-    if (typeof this._value === 'string') return 'text'
-    if (typeof this._value === 'number') return 'number'
-    return 'text'
+  set value(v: T) {
+    this._value = v
+  }
+
+  get type() {
+    return this._type
   }
 }
 
