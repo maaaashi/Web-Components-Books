@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Attr } from './Attr'
+import { Attr, Control } from './Attr'
 
 export class WebComponent {
   constructor(
@@ -32,5 +32,28 @@ export class WebComponent {
 
   get attributes() {
     return this._attributes
+  }
+
+  static onChange(
+    prev: WebComponent,
+    attrName: string,
+    attrValue: string,
+  ): WebComponent {
+    const newComponent = new WebComponent(
+      'Country Flag Component',
+      'country-flag',
+      prev.attributes.map((a) =>
+        a.name === attrName
+          ? new Attr(
+              a.name,
+              a.description,
+              a.defaultValue,
+              new Control(a.control.type === 'number' ? +attrValue : attrValue),
+            )
+          : a,
+      ),
+      'https://maaaashi.github.io/country-flag/bundle.js',
+    )
+    return newComponent
   }
 }

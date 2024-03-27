@@ -80,29 +80,11 @@ export const WebComponentsFrame: FC<Props> = () => {
                   value={attr.control.value || ''}
                   onChange={(e) => {
                     setComponent((prev) => {
-                      const newComponent = new WebComponent(
-                        'Country Flag Component',
-                        'country-flag',
-                        prev.attributes.map((a) =>
-                          a.name === attr.name
-                            ? new Attr(
-                                a.name,
-                                a.description,
-                                a.defaultValue,
-                                new Control(
-                                  a.control.type === 'number'
-                                    ? +e.target.value
-                                    : e.target.value,
-                                ),
-                              )
-                            : a,
-                        ),
-                        'https://maaaashi.github.io/country-flag/bundle.js',
+                      return WebComponent.onChange(
+                        prev,
+                        attr.name,
+                        e.target.value,
                       )
-                      console.log(
-                        typeof newComponent.attributes[1].control.value,
-                      )
-                      return newComponent
                     })
                     attr.control.value = e.target.value
                   }}
