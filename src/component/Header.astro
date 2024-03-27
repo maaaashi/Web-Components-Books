@@ -1,9 +1,13 @@
 ---
+import { AccountInfo } from './AccountInfo'
 import { HeaderTitle } from './Button/HeaderTitle'
 ---
 
-<header class='w-screen bg-base-300 p-4'>
+<header class='w-screen bg-base-300 p-4 flex justify-between'>
   <h1>
     <HeaderTitle client:load />
   </h1>
+  <div class='self-center'>
+    <AccountInfo client:load />
+  </div>
 </header>
