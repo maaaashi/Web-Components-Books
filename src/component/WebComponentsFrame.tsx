@@ -103,7 +103,7 @@ export const WebComponentsFrame: FC<Props> = () => {
         <iframe
           ref={iframeRef}
           sandbox='allow-scripts'
-          className={`w-full h-96 ${value === 'dark' ? 'bg-stone-700' : ''}`}
+          className={`w-full h-96 border border-dashed ${value === 'dark' ? 'bg-stone-700' : ''}`}
           title='Sandboxed Component'
         ></iframe>
       </div>
