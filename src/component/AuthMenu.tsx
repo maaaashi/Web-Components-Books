@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../libs/supabaseClient'
 import type { Session } from '@supabase/supabase-js'
 
-export const Auth = () => {
+export const AuthMenu = () => {
   const [session, setSession] = useState<null | Session>(null)
   useEffect(() => {
     supabase.auth.getSession().then((session) => {
@@ -10,8 +10,12 @@ export const Auth = () => {
     })
   })
 
-  const signUp = async () => {}
-  const signIn = async () => {}
+  const signUp = async () => {
+    window.location.href = '/auth/sign_up'
+  }
+  const signIn = async () => {
+    window.location.href = '/auth/sign_in'
+  }
 
   if (session) {
     return <div>ログイン済</div>
