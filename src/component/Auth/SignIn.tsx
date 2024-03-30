@@ -46,7 +46,7 @@ export const SignInForm = () => {
       </label>
 
       <button className='btn btn-primary' type='submit'>
-        Sign Up
+        Sign In
       </button>
 
       <div className='divider'>OR</div>
