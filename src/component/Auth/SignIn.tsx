@@ -7,9 +7,6 @@ export const SignInForm = () => {
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
   }
-  const loginWithGithub = async () => {
-    supabase.auth.signInWithOAuth({ provider: 'github' })
-  }
   return (
     <form
       className='bg-base-200 p-5 w-[400px] rounded-lg flex flex-col gap-2'
@@ -54,7 +51,13 @@ export const SignInForm = () => {
 
       <div className='divider'>OR</div>
 
-      <button className='btn btn-outline' type='button' disabled>
+      <button
+        className='btn btn-outline'
+        type='button'
+        onClick={() => {
+          supabase.auth.signInWithOAuth({ provider: 'google' })
+        }}
+      >
         <FcGoogle size={30} />
         Login with Google
       </button>
@@ -62,7 +65,7 @@ export const SignInForm = () => {
         className='btn btn-outline'
         type='button'
         onClick={() => {
-          loginWithGithub()
+          supabase.auth.signInWithOAuth({ provider: 'github' })
         }}
       >
         <FaGithub size={30} />
