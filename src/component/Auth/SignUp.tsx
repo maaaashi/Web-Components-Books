@@ -1,4 +1,8 @@
 import type { FormEvent } from 'react'
+import { supabase } from '../../libs/supabaseClient'
+import { FcGoogle } from 'react-icons/fc'
+import { FaGithub } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 
 export const SignUpForm = () => {
   const submitHandler = async (e: FormEvent) => {
@@ -63,6 +67,33 @@ export const SignUpForm = () => {
       </label>
       <button className='btn btn-primary' type='submit'>
         Sign Up
+      </button>
+
+      <div className='divider'>OR</div>
+
+      <button
+        className='btn btn-outline'
+        type='button'
+        onClick={() => {
+          supabase.auth.signInWithOAuth({ provider: 'google' })
+        }}
+      >
+        <FcGoogle size={30} />
+        Googleで登録
+      </button>
+      <button
+        className='btn btn-outline'
+        type='button'
+        onClick={() => {
+          supabase.auth.signInWithOAuth({ provider: 'github' })
+        }}
+      >
+        <FaGithub size={30} />
+        GitHubで登録
+      </button>
+      <button className='btn btn-outline' type='button' disabled>
+        <FaXTwitter size={30} />
+        X(Twitter)で登録
       </button>
     </form>
   )

@@ -59,7 +59,7 @@ export const SignInForm = () => {
         }}
       >
         <FcGoogle size={30} />
-        Login with Google
+        Googleでログイン
       </button>
       <button
         className='btn btn-outline'
@@ -69,11 +69,11 @@ export const SignInForm = () => {
         }}
       >
         <FaGithub size={30} />
-        Login with GitHub
+        GitHubでログイン
       </button>
       <button className='btn btn-outline' type='button' disabled>
         <FaXTwitter size={30} />
-        Login with X
+        X(Twitter)でログイン
       </button>
     </form>
   )

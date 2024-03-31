@@ -36,7 +36,7 @@ export const AuthMenu = () => {
           </div>
           {session.user.user_metadata.name}
           <button className='btn' onClick={signOut}>
-            Sign Out
+            ログアウト
           </button>
         </div>
       </div>
@@ -44,11 +44,11 @@ export const AuthMenu = () => {
   } else {
     return (
       <div className='flex gap-2'>
-        <button className='btn btn-outline' onClick={signUp}>
-          Sign Up
+        <button className='btn btn-outline' onClick={signIn}>
+          ログイン
         </button>
-        <button className='btn' onClick={signIn}>
-          Sign In
+        <button className='btn btn-outline' onClick={signUp}>
+          新規登録
         </button>
       </div>
     )
