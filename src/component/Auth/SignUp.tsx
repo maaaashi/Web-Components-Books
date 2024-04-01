@@ -2,7 +2,6 @@ import { useState, type FormEvent } from 'react'
 import { supabase } from '../../libs/supabaseClient'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
 import { z } from 'zod'
 
 export const SignUpForm = () => {
@@ -142,10 +141,6 @@ export const SignUpForm = () => {
       >
         <FaGithub size={30} />
         GitHubで登録
-      </button>
-      <button className='btn btn-outline' type='button' disabled>
-        <FaXTwitter size={30} />
-        X(Twitter)で登録
       </button>
     </form>
   )
