@@ -3,16 +3,30 @@ import { supabase } from '../../libs/supabaseClient'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
+import { z } from 'zod'
 
 export const SignUpForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+
+  const schema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+  })
+
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
 
     if (password !== confirmPassword) {
       alert('パスワードが一致しません')
+      return
+    }
+
+    const { success } = schema.safeParse({ email, password })
+
+    if (!success) {
+      console.error('Invalid email or password')
       return
     }
 
@@ -23,7 +37,11 @@ export const SignUpForm = () => {
 
     if (error) {
       console.log(error)
+      return
     }
+
+    alert('メールが送られました')
+    window.location.href = '/'
   }
   return (
     <form

@@ -3,16 +3,38 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { supabase } from '../../libs/supabaseClient'
+import { z } from 'zod'
+
 export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const schema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+  })
+
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
+
+    const { success } = schema.safeParse({ email, password })
+
+    if (!success) {
+      console.error('Invalid email or password')
+      return
+    }
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
+
+    if (error) {
+      console.error('Failed to sign in:', error.message)
+    }
+
+    alert('ログインしました')
+    window.location.href = '/'
   }
   return (
     <form
