@@ -7,12 +7,13 @@ import { z } from 'zod'
 export const SignInForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState<string[]>([])
 
   const schema = z.object({
     email: z
       .string()
-      .email({ message: '無効なEメールアドレスです' })
-      .min(1, { message: 'Eメールは必須です' }),
+      .email({ message: '無効なEmailです' })
+      .min(1, { message: 'Emailは必須です' }),
     password: z
       .string()
       .min(8, { message: 'パスワードは最低8文字である必要があります' })
@@ -36,7 +37,7 @@ export const SignInForm = () => {
       window.location.href = '/'
     } catch (error) {
       if (error instanceof z.ZodError) {
-        console.log(error.errors)
+        setErrors(error.errors.map((error) => error.message))
       } else {
         console.log(error)
       }
@@ -91,6 +92,12 @@ export const SignInForm = () => {
           }}
         />
       </label>
+
+      {errors.map((error) => (
+        <div key={error} className='text-error font-bold'>
+          {error}
+        </div>
+      ))}
 
       <button className='btn btn-primary' type='submit'>
         ログイン

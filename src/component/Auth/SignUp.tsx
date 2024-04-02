@@ -8,23 +8,24 @@ export const SignUpForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [errors, setErrors] = useState<string[]>([])
 
   const schema = z
     .object({
       email: z
         .string()
-        .email({ message: '無効なEメールアドレスです' })
-        .min(1, { message: 'Eメールは必須です' }),
+        .email({ message: '無効なEmailです' })
+        .min(1, { message: 'Emailは必須です' }),
       password: z
         .string()
         .min(8, { message: 'パスワードは最低8文字である必要があります' })
         .min(1, { message: 'パスワードは必須です' }),
       confirmPassword: z
         .string()
-        .min(1, { message: 'パスワード確認は必須です' }),
+        .min(1, { message: '確認用パスワードは必須です' }),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: 'パスワードとパスワード確認が一致しません',
+      message: 'パスワードと確認用パスワードが一致しません',
       path: ['confirmPassword'],
     })
 
@@ -46,7 +47,7 @@ export const SignUpForm = () => {
       window.location.href = '/'
     } catch (e) {
       if (e instanceof z.ZodError) {
-        console.log(e.errors)
+        setErrors(e.errors.map((error) => error.message))
       } else {
         console.log(e)
       }
@@ -124,6 +125,11 @@ export const SignUpForm = () => {
           }}
         />
       </label>
+      {errors.map((error) => (
+        <div key={error} className='text-error font-bold'>
+          {error}
+        </div>
+      ))}
       <button className='btn btn-primary' type='submit'>
         新規登録
       </button>
