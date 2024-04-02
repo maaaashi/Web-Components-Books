@@ -9,31 +9,38 @@ export const SignInForm = () => {
   const [password, setPassword] = useState('')
 
   const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
+    email: z
+      .string()
+      .email({ message: '無効なEメールアドレスです' })
+      .min(1, { message: 'Eメールは必須です' }),
+    password: z
+      .string()
+      .min(8, { message: 'パスワードは最低8文字である必要があります' })
+      .min(1, { message: 'パスワードは必須です' }),
   })
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    const { success } = schema.safeParse({ email, password })
+    try {
+      schema.parse({ email, password })
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
 
-    if (!success) {
-      console.error('Invalid email or password')
-      return
+      if (error) {
+        console.error('Failed to sign in:', error.message)
+        return
+      }
+      window.location.href = '/'
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.log(error.errors)
+      } else {
+        console.log(error)
+      }
     }
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    if (error) {
-      console.error('Failed to sign in:', error.message)
-      return
-    }
-
-    window.location.href = '/'
   }
   return (
     <form
@@ -78,7 +85,6 @@ export const SignInForm = () => {
           type='password'
           className='grow'
           placeholder='Password'
-          required
           value={password}
           onChange={(e) => {
             setPassword(e.target.value)

@@ -9,38 +9,48 @@ export const SignUpForm = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8),
-  })
+  const schema = z
+    .object({
+      email: z
+        .string()
+        .email({ message: '無効なEメールアドレスです' })
+        .min(1, { message: 'Eメールは必須です' }),
+      password: z
+        .string()
+        .min(8, { message: 'パスワードは最低8文字である必要があります' })
+        .min(1, { message: 'パスワードは必須です' }),
+      confirmPassword: z
+        .string()
+        .min(1, { message: 'パスワード確認は必須です' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'パスワードとパスワード確認が一致しません',
+      path: ['confirmPassword'],
+    })
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault()
 
-    if (password !== confirmPassword) {
-      alert('パスワードが一致しません')
-      return
+    try {
+      schema.parse({ email, password, confirmPassword })
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      })
+      if (error) {
+        console.log(error)
+        return
+      }
+
+      alert('メールが送られました')
+      window.location.href = '/'
+    } catch (e) {
+      if (e instanceof z.ZodError) {
+        console.log(e.errors)
+      } else {
+        console.log(e)
+      }
     }
-
-    const { success } = schema.safeParse({ email, password })
-
-    if (!success) {
-      console.error('Invalid email or password')
-      return
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-
-    if (error) {
-      console.log(error)
-      return
-    }
-
-    alert('メールが送られました')
-    window.location.href = '/'
   }
   return (
     <form
@@ -85,7 +95,6 @@ export const SignUpForm = () => {
           type='password'
           className='grow'
           placeholder='Password'
-          required
           value={password}
           onChange={(e) => {
             setPassword(e.target.value)
@@ -109,7 +118,6 @@ export const SignUpForm = () => {
           type='password'
           className='grow'
           placeholder='Confirm Password'
-          required
           value={confirmPassword}
           onChange={(e) => {
             setConfirmPassword(e.target.value)
