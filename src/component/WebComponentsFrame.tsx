@@ -1,12 +1,13 @@
 import { useEffect, useRef, type FC, useState } from 'react'
 import { WebComponent } from '../domain/Component'
 import { Attr, Control } from '../domain/Attr'
+import { supabase } from '../libs/supabaseClient'
 
 type Props = {
   id: string
 }
 
-export const WebComponentsFrame: FC<Props> = () => {
+export const WebComponentsFrame: FC<Props> = ({ id }) => {
   const [component, setComponent] = useState<WebComponent>(
     new WebComponent(
       'Country Flag Component',
@@ -29,6 +30,17 @@ export const WebComponentsFrame: FC<Props> = () => {
   const [value, setValue] = useState<'light' | 'dark'>('light')
 
   const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  useEffect(() => {
+    supabase
+      .from('webcomponent_attributes')
+      .select('attribute_id')
+      .eq('webcomponent_id', id)
+      .then(({ data, error }) => {
+        console.log(data)
+        console.log(error)
+      })
+  }, [id])
 
   useEffect(() => {
     const iframeContent = `
