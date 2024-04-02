@@ -29,12 +29,14 @@ export const AuthMenu = () => {
           <div className='w-9 rounded-full'>
             <Avatar
               size={40}
-              name={session.user.user_metadata.name}
+              name={session.user.user_metadata.name || session.user.email}
               variant='sunset'
               colors={['#92A1C6', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
             />
           </div>
-          <p className='font-bold'>{session.user.user_metadata.name}さん</p>
+          <p className='font-bold'>
+            {session.user.user_metadata.name || session.user.email}さん
+          </p>
           <button className='btn' onClick={signOut}>
             ログアウト
           </button>

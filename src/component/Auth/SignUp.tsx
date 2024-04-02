@@ -117,7 +117,7 @@ export const SignUpForm = () => {
         />
       </label>
       <button className='btn btn-primary' type='submit'>
-        Sign Up
+        新規登録
       </button>
 
       <div className='divider'>OR</div>

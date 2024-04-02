@@ -30,9 +30,9 @@ export const SignInForm = () => {
 
     if (error) {
       console.error('Failed to sign in:', error.message)
+      return
     }
 
-    alert('ログインしました')
     window.location.href = '/'
   }
   return (
@@ -87,7 +87,7 @@ export const SignInForm = () => {
       </label>
 
       <button className='btn btn-primary' type='submit'>
-        Sign In
+        ログイン
       </button>
 
       <div className='divider'>OR</div>
