@@ -19,6 +19,7 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
       .select('*,webcomponent (*)')
       .eq('webcomponent_id', id)
       .then(({ data, error }): void => {
+        console.log(data)
         if (error) {
           console.error(error)
           return
@@ -32,14 +33,13 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
           )
         })
 
-        const { name, description, publisher, tagname, src } = data[0]
-          .webcomponent as any
+        const { name, description, tagname, src } = data[0].webcomponent as any
 
         setComponent(
           new WebComponent(
             name,
             description,
-            publisher,
+            'maaaashi',
             tagname,
             attributes,
             src,
@@ -81,7 +81,6 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
     <>
       <section className='flex items-center gap-3'>
         <h2 className='font-bold text-lg'>{component.name}</h2>
-        <div>by {component.publisher}</div>
       </section>
       <section>
         <p>{component.description}</p>
