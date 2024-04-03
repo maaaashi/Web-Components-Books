@@ -1,15 +1,14 @@
-export class Control<T> {
-  private _type: string
-
-  constructor(private _value: T) {
-    this._type = typeof _value
-  }
+export class Control {
+  constructor(
+    private _value: string,
+    private _type: string,
+  ) {}
 
   get value() {
     return this._value
   }
 
-  set value(v: T) {
+  set value(v: string) {
     this._value = v
   }
 
@@ -18,12 +17,12 @@ export class Control<T> {
   }
 }
 
-export class Attr<T> {
+export class Attr {
   constructor(
     private _name: string,
     private _description: string,
     private _defaultValue: string | number | boolean | null | undefined,
-    private _control: Control<T>,
+    private _control: Control,
   ) {}
 
   get name() {

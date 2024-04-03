@@ -8,41 +8,51 @@ type Props = {
 }
 
 export const WebComponentsFrame: FC<Props> = ({ id }) => {
-  const [component, setComponent] = useState<WebComponent>(
-    new WebComponent(
-      'Country Flag Component',
-      'A web component to display a country flag.',
-      'maaaashi',
-      'country-flag',
-      [
-        new Attr('code', 'country code', 'JP', new Control('US')),
-        new Attr('size', '16 | 24 | 32 | 48 | 64', 64, new Control(32)),
-        new Attr(
-          'type',
-          'flat | shiny',
-          'flat',
-          new Control<'flat' | 'shiny' | ''>(''),
-        ),
-      ],
-      'https://maaaashi.github.io/country-flag/bundle.js',
-    ),
-  )
+  const [component, setComponent] = useState<WebComponent>()
   const [value, setValue] = useState<'light' | 'dark'>('light')
 
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {
     supabase
-      .from('webcomponent_attributes')
-      .select('attribute_id')
+      .from('attribute')
+      .select('*,webcomponent (*)')
       .eq('webcomponent_id', id)
-      .then(({ data, error }) => {
-        console.log(data)
-        console.log(error)
+      .then(({ data, error }): void => {
+        if (error) {
+          console.error(error)
+          return
+        }
+        const attributes = data.map((attr: any) => {
+          return new Attr(
+            attr.name,
+            attr.description,
+            attr.default_value,
+            new Control('', attr.type),
+          )
+        })
+
+        const { name, description, publisher, tagname, src } = data[0]
+          .webcomponent as any
+
+        setComponent(
+          new WebComponent(
+            name,
+            description,
+            publisher,
+            tagname,
+            attributes,
+            src,
+          ),
+        )
       })
   }, [id])
 
   useEffect(() => {
+    if (!component) {
+      return
+    }
+
     const iframeContent = `
         <!DOCTYPE html>
         <html lang="en">
@@ -62,6 +72,10 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
       iframeRef.current.srcdoc = iframeContent
     }
   }, [component])
+
+  if (!component) {
+    return <div>Loading...</div>
+  }
 
   return (
     <>
@@ -144,7 +158,7 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
                   onChange={(e) => {
                     setComponent((prev) => {
                       return WebComponent.onChange(
-                        prev,
+                        prev!,
                         attr.name,
                         e.target.value,
                       )

@@ -7,7 +7,7 @@ export class WebComponent {
     private _description: string,
     private _publisher: string,
     private _tagName: string,
-    private _attributes: Attr<any>[],
+    private _attributes: Attr[],
     private _src: string,
     private _children?: ReactNode,
   ) {}
@@ -15,7 +15,13 @@ export class WebComponent {
   createHTMLElement() {
     const attrString = this._attributes
       .map((attr) => {
-        if (attr.control.value) return `${attr.name}="${attr.control.value}"`
+        if (attr.control.value) {
+          if (attr.control.type === 'string') {
+            return `${attr.name}="${attr.control.value}"`
+          } else {
+            return `${attr.name}=${attr.control.value}`
+          }
+        }
         return ''
       })
       .filter((attr) => attr)
@@ -64,7 +70,7 @@ export class WebComponent {
               a.name,
               a.description,
               a.defaultValue,
-              new Control(a.control.type === 'number' ? +attrValue : attrValue),
+              new Control(attrValue, a.control.type),
             )
           : a,
       ),
