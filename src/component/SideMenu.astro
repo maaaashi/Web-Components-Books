@@ -1,24 +1,7 @@
 ---
-import { supabase } from '../libs/supabaseClient'
-import { SideMenuItem } from './Button/SideMenuItem.tsx'
-
-const { data, error } = await supabase.from('webcomponent').select('id, name')
-
-if (error) {
-  console.error(error)
-}
+import { SideMenuItems } from './SideMenuItems'
 ---
 
-<div class='bg-stone-200 p-5 min-w-40'>
-  <ul class='flex flex-col gap-3'>
-    {
-      data!.map((l) => {
-        return (
-          <li>
-            <SideMenuItem title={l.name} id={l.id} client:load />
-          </li>
-        )
-      })
-    }
-  </ul>
+<div class='bg-stone-200 p-5 min-w-60 w-60'>
+  <SideMenuItems client:load />
 </div>
