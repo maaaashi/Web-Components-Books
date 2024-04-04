@@ -1,13 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import Main from '../../component/Main.astro'
 import { WebComponentsFrame } from '../../component/WebComponentsFrame'
 
 const { id } = Astro.params
 ---
 
 <Layout>
-  <Main>
-    {id && <WebComponentsFrame client:load id={id} />}
-  </Main>
+  {id && <WebComponentsFrame client:load id={id} />}
 </Layout>

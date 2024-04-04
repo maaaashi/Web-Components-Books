@@ -106,7 +106,7 @@ export const SignInForm = () => {
       <div className='divider'>OR</div>
 
       <button
-        className='btn btn-outline'
+        className='btn btn-outline bg-white'
         type='button'
         onClick={() => {
           supabase.auth.signInWithOAuth({ provider: 'google' })
@@ -116,7 +116,7 @@ export const SignInForm = () => {
         Googleでログイン
       </button>
       <button
-        className='btn btn-outline'
+        className='btn btn-outline bg-white'
         type='button'
         onClick={() => {
           supabase.auth.signInWithOAuth({ provider: 'github' })

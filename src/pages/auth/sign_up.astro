@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro'
 import { SignUpForm } from '../../component/Auth/SignUp.tsx'
+import AuthLayout from '../../layouts/AuthLayout.astro'
 ---
 
-<Layout>
+<AuthLayout>
   <div class='flex justify-center my-40'>
     <SignUpForm client:load />
   </div>
-</Layout>
+</AuthLayout>

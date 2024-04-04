@@ -1,6 +1,5 @@
 ---
 import Header from '../component/Header.astro'
-import Main from '../component/Main.astro'
 ---
 
 <html lang='ja'>
@@ -12,8 +11,6 @@ import Main from '../component/Main.astro'
   </head>
   <body class='flex flex-col h-screen'>
     <Header />
-    <Main>
-      <slot />
-    </Main>
+    <slot />
   </body>
 </html>
