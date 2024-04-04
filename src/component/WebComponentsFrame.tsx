@@ -80,13 +80,14 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
   return (
     <>
       <section className='flex items-center gap-3'>
-        <h2 className='font-bold text-lg'>{component.name}</h2>
+        <h2 className='font-bold text-2xl'>{component.name}</h2>
       </section>
-      <section>
+      <section className='bg-stone-200 p-4'>
         <p>{component.description}</p>
       </section>
       <div className='relative'>
-        <div className='w-40 absolute right-0 top-3'>
+        <h3 className='font-bold text-lg'>Preview</h3>
+        <div className='w-40 absolute right-0 top-10'>
           <label className='cursor-pointer grid place-items-center'>
             <input
               type='checkbox'
@@ -132,7 +133,6 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
           title='Sandboxed Component'
         ></iframe>
       </div>
-      <h3 className='font-bold text-lg'>Usage</h3>
       <pre className='bg-stone-200 p-4'>{component.createHTMLElement()}</pre>
       <table className='table'>
         <thead>
