@@ -45,7 +45,7 @@ export const SignInForm = () => {
   }
   return (
     <form
-      className='bg-stone-200 p-5 w-[400px] rounded-lg flex flex-col gap-2'
+      className='bg-stone-100 p-5 w-[400px] rounded-lg flex flex-col gap-2'
       onSubmit={submitHandler}
     >
       <h3 className='font-bold text-lg'>ログイン</h3>
