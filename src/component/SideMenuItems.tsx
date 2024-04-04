@@ -31,7 +31,7 @@ export const SideMenuItems = () => {
     <ul className='flex flex-col gap-3'>
       {items.map((l) => {
         return (
-          <li>
+          <li key={l.id}>
             <SideMenuItem title={l.title} id={l.id} />
           </li>
         )
