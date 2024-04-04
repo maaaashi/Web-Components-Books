@@ -13,39 +13,32 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
 
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
-  useEffect(() => {
-    supabase
+  const loadWebComponent = async () => {
+    const { data: webcomponent } = await supabase
+      .from('webcomponent')
+      .select('*')
+      .eq('id', id)
+      .single()
+    const { data: attributes } = await supabase
       .from('attribute')
-      .select('*,webcomponent (*)')
+      .select('*')
       .eq('webcomponent_id', id)
-      .then(({ data, error }): void => {
-        console.log(data)
-        if (error) {
-          console.error(error)
-          return
-        }
-        const attributes = data.map((attr: any) => {
-          return new Attr(
-            attr.name,
-            attr.description,
-            attr.default_value,
-            new Control('', attr.type),
-          )
-        })
+    const attrs = attributes!.map((attr: any) => {
+      return new Attr(
+        attr.name,
+        attr.description,
+        attr.default_value,
+        new Control('', attr.type),
+      )
+    })
+    const { name, description, tagname, src } = webcomponent
+    setComponent(
+      new WebComponent(name, description, 'maaaashi', tagname, attrs, src),
+    )
+  }
 
-        const { name, description, tagname, src } = data[0].webcomponent as any
-
-        setComponent(
-          new WebComponent(
-            name,
-            description,
-            'maaaashi',
-            tagname,
-            attributes,
-            src,
-          ),
-        )
-      })
+  useEffect(() => {
+    loadWebComponent()
   }, [id])
 
   useEffect(() => {

@@ -1,21 +1,24 @@
 ---
+import { supabase } from '../libs/supabaseClient'
 import { SideMenuItem } from './Button/SideMenuItem.tsx'
-const links = [
-  {
-    id: 'be595fd7-2d5c-4999-8f9e-0aeb7d457d3f',
-    title: 'Country Flag Component',
-  },
-]
+
+const { data, error } = await supabase.from('webcomponent').select('id, name')
+
+if (error) {
+  console.error(error)
+}
 ---
 
 <div class='bg-stone-200 p-5 min-w-40'>
-  <ul>
-    <li>
-      {
-        links.map((l) => {
-          return <SideMenuItem title={l.title} id={l.id} client:load />
-        })
-      }
-    </li>
+  <ul class='flex flex-col gap-3'>
+    {
+      data!.map((l) => {
+        return (
+          <li>
+            <SideMenuItem title={l.name} id={l.id} client:load />
+          </li>
+        )
+      })
+    }
   </ul>
 </div>

@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { Attr, Control } from './Attr'
 
 export class WebComponent {
@@ -9,7 +8,6 @@ export class WebComponent {
     private _tagName: string,
     private _attributes: Attr[],
     private _src: string,
-    private _children?: ReactNode,
   ) {}
 
   createHTMLElement() {
@@ -17,17 +15,17 @@ export class WebComponent {
       .map((attr) => {
         if (attr.control.value) {
           if (attr.control.type === 'string') {
-            return `${attr.name}="${attr.control.value}"`
+            return ` ${attr.name}="${attr.control.value}"`
           } else {
-            return `${attr.name}=${attr.control.value}`
+            return ` ${attr.name}=${attr.control.value}`
           }
         }
         return ''
       })
       .filter((attr) => attr)
-      .join(' ')
+      .join('')
 
-    return `<${this._tagName} ${attrString}>${this._children || ''}</${this._tagName}>`
+    return `<${this._tagName}${attrString}></${this._tagName}>`
   }
 
   get name() {
