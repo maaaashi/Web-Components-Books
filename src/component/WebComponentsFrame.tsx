@@ -92,7 +92,7 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
               type='checkbox'
               value={value}
               onChange={(e) => setValue(e.target.checked ? 'dark' : 'light')}
-              className='toggle bg-base-content row-start-1 col-start-1 col-span-2'
+              className='toggle bg-stone-content row-start-1 col-start-1 col-span-2'
             />
             <svg
               className={`col-start-1 row-start-1 ${value === 'light' ? 'stroke-stone-900 fill-stonestroke-stone-900' : 'stroke-stone-200 fill-stonestroke-stone-200'}`}
@@ -133,7 +133,7 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
         ></iframe>
       </div>
       <h3 className='font-bold text-lg'>Usage</h3>
-      <pre className='bg-base-200 p-4'>{component.createHTMLElement()}</pre>
+      <pre className='bg-stone-200 p-4'>{component.createHTMLElement()}</pre>
       <table className='table'>
         <thead>
           <tr>
