@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react'
 import { SideMenuItem } from './Button/SideMenuItem'
 import { supabase } from '../libs/supabaseClient'
-import type { Session } from '@supabase/supabase-js'
+import { RegisterWebcomponentButton } from './Button/RegisterWebcomponent'
 
 export const SideMenuItems = () => {
   const [items, setItems] = useState<{ title: string; id: string }[]>()
-  const [session, setSession] = useState<Session | null>()
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session)
-    })
-  }, [session])
 
   useEffect(() => {
     supabase
@@ -37,7 +30,7 @@ export const SideMenuItems = () => {
 
   return (
     <ul className='flex flex-col gap-3'>
-      {session && <button className='btn btn-primary w-full'>登録</button>}
+      <RegisterWebcomponentButton />
 
       {items.map((l) => {
         return (
