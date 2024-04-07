@@ -143,21 +143,37 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
               <td>{attr.description}</td>
               <td>{attr.defaultValue}</td>
               <td>
-                <input
-                  className='input input-bordered'
-                  type={attr.control.type}
-                  value={attr.control.value || ''}
-                  onChange={(e) => {
-                    setComponent((prev) => {
-                      return WebComponent.onChange(
-                        prev!,
-                        attr.name,
-                        e.target.value,
-                      )
-                    })
-                    attr.control.value = e.target.value
-                  }}
-                />
+                {attr.control.type === 'checkbox' ? (
+                  <input
+                    className='checkbox'
+                    type={attr.control.type}
+                    checked={!!attr.control.value}
+                    onChange={(e) => {
+                      setComponent((prev) => {
+                        return WebComponent.onChange(
+                          prev!,
+                          attr.name,
+                          e.target.checked,
+                        )
+                      })
+                    }}
+                  />
+                ) : (
+                  <input
+                    className='input input-bordered'
+                    type={attr.control.type}
+                    value={attr.control.value || ''}
+                    onChange={(e) => {
+                      setComponent((prev) => {
+                        return WebComponent.onChange(
+                          prev!,
+                          attr.name,
+                          e.target.value,
+                        )
+                      })
+                    }}
+                  />
+                )}
               </td>
             </tr>
           ))}

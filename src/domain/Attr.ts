@@ -1,10 +1,10 @@
 export class Control {
   constructor(
-    private _value: string,
-    private _type: string,
+    private _value: string | boolean,
+    private _type: 'text' | 'number' | 'checkbox',
   ) {}
 
-  get value() {
+  get value(): string | boolean {
     return this._value
   }
 

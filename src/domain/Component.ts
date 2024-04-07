@@ -14,7 +14,7 @@ export class WebComponent {
     const attrString = this._attributes
       .map((attr) => {
         if (attr.control.value) {
-          if (attr.control.type === 'string') {
+          if (attr.control.type === 'text') {
             return ` ${attr.name}="${attr.control.value}"`
           } else {
             return ` ${attr.name}=${attr.control.value}`
@@ -55,7 +55,7 @@ export class WebComponent {
   static onChange(
     prev: WebComponent,
     attrName: string,
-    attrValue: string,
+    attrValue: string | boolean,
   ): WebComponent {
     const newComponent = new WebComponent(
       prev.name,
