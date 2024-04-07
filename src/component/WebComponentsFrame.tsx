@@ -1,6 +1,11 @@
 import { useEffect, useRef, type FC, useState } from 'react'
 import { WebComponent } from '../domain/Component'
-import { Attr, Control } from '../domain/Attr'
+import {
+  Attr,
+  CheckboxControl,
+  NumberControl,
+  TextControl,
+} from '../domain/Attr'
 import { supabase } from '../libs/supabaseClient'
 
 type Props = {
@@ -24,12 +29,13 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
       .select('*')
       .eq('webcomponent_id', id)
     const attrs = attributes!.map((attr: any) => {
-      return new Attr(
-        attr.name,
-        attr.description,
-        attr.default_value,
-        new Control('', attr.type),
-      )
+      const control =
+        attr.type === 'text'
+          ? new TextControl(String(''), attr.type)
+          : attr.type === 'number'
+            ? new NumberControl(Number(''), attr.type)
+            : new CheckboxControl(Boolean(''), attr.type)
+      return new Attr(attr.name, attr.description, attr.default_value, control)
     })
     const { name, description, tagname, src } = webcomponent
     setComponent(

@@ -1,4 +1,4 @@
-import { Attr, Control } from './Attr'
+import { Attr, CheckboxControl, NumberControl, TextControl } from './Attr'
 
 export class WebComponent {
   constructor(
@@ -55,23 +55,23 @@ export class WebComponent {
   static onChange(
     prev: WebComponent,
     attrName: string,
-    attrValue: string | boolean,
+    attrValue: string | number | boolean,
   ): WebComponent {
     const newComponent = new WebComponent(
       prev.name,
       prev.description,
       prev.publisher,
       prev.tagnName,
-      prev.attributes.map((a) =>
-        a.name === attrName
-          ? new Attr(
-              a.name,
-              a.description,
-              a.defaultValue,
-              new Control(attrValue, a.control.type),
-            )
-          : a,
-      ),
+      prev.attributes.map((a) => {
+        if (a.name !== attrName) return a
+        const control =
+          a.control.type === 'text'
+            ? new TextControl(String(attrValue), a.control.type)
+            : a.control.type === 'number'
+              ? new NumberControl(+attrValue, a.control.type)
+              : new CheckboxControl(!!attrValue, a.control.type)
+        return new Attr(a.name, a.description, a.defaultValue, control)
+      }),
       prev.src,
     )
     return newComponent
