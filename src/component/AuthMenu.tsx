@@ -46,10 +46,10 @@ export const AuthMenu = () => {
   } else {
     return (
       <div className='flex gap-2'>
-        <button className='btn btn-outline bg-stone-50' onClick={signIn}>
+        <button className='btn font-bold' onClick={signIn}>
           ログイン
         </button>
-        <button className='btn btn-outline bg-stone-50' onClick={signUp}>
+        <button className='btn font-bold' onClick={signUp}>
           新規登録
         </button>
       </div>
