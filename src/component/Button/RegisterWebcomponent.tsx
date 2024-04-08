@@ -26,8 +26,45 @@ export const RegisterWebcomponentButton = () => {
       <dialog id='my_modal_2' className='modal' ref={modalRef}>
         <div className='modal-box'>
           <h3 className='font-bold text-lg'>Web Componentを登録</h3>
-          <p className='py-4'>Press ESC key or click outside to close</p>
-          <input type='text' className='input' />
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Name</span>
+            </div>
+            <input
+              type='text'
+              placeholder='Type here'
+              className='input input-bordered w-full'
+            />
+          </label>
+          <label className='form-control'>
+            <div className='label'>
+              <span className='label-text'>Description</span>
+            </div>
+            <textarea
+              className='textarea textarea-bordered h-24'
+              placeholder='Bio'
+            ></textarea>
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Tag Name</span>
+            </div>
+            <input
+              type='text'
+              placeholder='Type here'
+              className='input input-bordered w-full'
+            />
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Src</span>
+            </div>
+            <input
+              type='text'
+              placeholder='Type here'
+              className='input input-bordered w-full'
+            />
+          </label>
           <form method='dialog'>
             <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>
               ✕
