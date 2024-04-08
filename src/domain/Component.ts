@@ -16,8 +16,10 @@ export class WebComponent {
         if (attr.control.value) {
           if (attr.control.type === 'text') {
             return ` ${attr.name}="${attr.control.value}"`
-          } else {
+          } else if (attr.control.type === 'number') {
             return ` ${attr.name}=${attr.control.value}`
+          } else {
+            return ` ${attr.name}`
           }
         }
         return ''
