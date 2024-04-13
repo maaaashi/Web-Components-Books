@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { supabase } from '../libs/supabaseClient'
-import { CiCircleChevRight } from 'react-icons/ci'
+import { CiCircleChevLeft, CiCircleChevRight } from 'react-icons/ci'
+import { FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6'
 
 type InsertWebcomponent = {
   name: string
@@ -14,6 +15,7 @@ export const RegisterWebcomponentForm = () => {
   const [description, setDescription] = useState('')
   const [tagname, setTagname] = useState('')
   const [src, setSrc] = useState('')
+  const [step, setStep] = useState(1)
   const insertWebcomponent = async () => {
     const { data, error } = await supabase
       .from('webcomponent')
@@ -35,57 +37,130 @@ export const RegisterWebcomponentForm = () => {
   }
   return (
     <form onSubmit={submitHandler} className='flex flex-col'>
-      <label className='form-control w-full'>
-        <div className='label'>
-          <span className='label-text'>Name</span>
+      {step === 1 && (
+        <div className='animate-slideIn'>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Name</span>
+            </div>
+            <input
+              className='input input-bordered w-full'
+              placeholder='例) Country Flag Component'
+              type='text'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <label className='form-control'>
+            <div className='label'>
+              <span className='label-text'>Description</span>
+            </div>
+            <textarea
+              className='textarea textarea-bordered h-24'
+              placeholder='例) 国旗を表示するコンポーネント'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Tag Name</span>
+            </div>
+            <input
+              type='text'
+              placeholder='例) country-flag'
+              className='input input-bordered w-full'
+              value={tagname}
+              onChange={(e) => setTagname(e.target.value)}
+            />
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Src</span>
+            </div>
+            <input
+              type='text'
+              placeholder='例) https://maaaashi.github.io/country-flag/bundle.js'
+              className='input input-bordered w-full'
+              value={src}
+              onChange={(e) => setSrc(e.target.value)}
+            />
+          </label>
         </div>
-        <input
-          className='input input-bordered w-full'
-          placeholder='例) Country Flag Component'
-          type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </label>
-      <label className='form-control'>
-        <div className='label'>
-          <span className='label-text'>Description</span>
+      )}
+      {step === 2 && (
+        <div className='animate-slideIn'>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Name</span>
+            </div>
+            <input
+              className='input input-bordered w-full'
+              placeholder='例) Country Flag Component'
+              type='text'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <label className='form-control'>
+            <div className='label'>
+              <span className='label-text'>Description</span>
+            </div>
+            <textarea
+              className='textarea textarea-bordered h-24'
+              placeholder='例) 国旗を表示するコンポーネント'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Tag Name</span>
+            </div>
+            <input
+              type='text'
+              placeholder='例) country-flag'
+              className='input input-bordered w-full'
+              value={tagname}
+              onChange={(e) => setTagname(e.target.value)}
+            />
+          </label>
+          <label className='form-control w-full'>
+            <div className='label'>
+              <span className='label-text'>Src</span>
+            </div>
+            <input
+              type='text'
+              placeholder='例) https://maaaashi.github.io/country-flag/bundle.js'
+              className='input input-bordered w-full'
+              value={src}
+              onChange={(e) => setSrc(e.target.value)}
+            />
+          </label>
         </div>
-        <textarea
-          className='textarea textarea-bordered h-24'
-          placeholder='例) 国旗を表示するコンポーネント'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      </label>
-      <label className='form-control w-full'>
-        <div className='label'>
-          <span className='label-text'>Tag Name</span>
-        </div>
-        <input
-          type='text'
-          placeholder='例) country-flag'
-          className='input input-bordered w-full'
-          value={tagname}
-          onChange={(e) => setTagname(e.target.value)}
-        />
-      </label>
-      <label className='form-control w-full'>
-        <div className='label'>
-          <span className='label-text'>Src</span>
-        </div>
-        <input
-          type='text'
-          placeholder='例) https://maaaashi.github.io/country-flag/bundle.js'
-          className='input input-bordered w-full'
-          value={src}
-          onChange={(e) => setSrc(e.target.value)}
-        />
-      </label>
-      <button type='submit' className='btn btn-primary mt-6'>
-        Attribute の登録へ
-        <CiCircleChevRight size={35} />
-      </button>
+      )}
+
+      <div className='join'>
+        <button
+          className='btn mt-6 join-item flex-1'
+          type='button'
+          disabled={step === 1}
+          onClick={() => {
+            setStep((c) => c - 1)
+          }}
+        >
+          <FaAnglesLeft />
+        </button>
+        <button
+          className='btn btn-primary mt-6 join-item flex-1'
+          type='button'
+          onClick={() => {
+            setStep((c) => c + 1)
+          }}
+        >
+          <FaAnglesRight />
+        </button>
+      </div>
     </form>
   )
 }
