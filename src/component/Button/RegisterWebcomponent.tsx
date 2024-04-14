@@ -27,7 +27,6 @@ export const RegisterWebcomponentButton = () => {
       )}
       <dialog id='my_modal_2' className='modal' ref={modalRef}>
         <div className='modal-box'>
-          <h3 className='font-bold text-lg'>Web Componentを登録</h3>
           <RegisterWebcomponentForm />
           <form method='dialog'>
             <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>

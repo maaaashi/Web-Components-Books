@@ -6,13 +6,18 @@ export default {
   theme: {
     extend: {
       keyframes: {
-        slideIn: {
+        slideInRight: {
           '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideInLeft: {
+          '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(0)' },
         },
       },
       animation: {
-        slideIn: 'slideIn 0.5s ease-in-out forwards',
+        slideInRight: 'slideInRight 0.5s ease-in-out forwards',
+        slideInLeft: 'slideInLeft 0.5s ease-in-out forwards',
       },
     },
   },
