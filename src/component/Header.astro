@@ -1,13 +1,17 @@
 ---
 import { AuthMenu } from './AuthMenu'
 import { HeaderTitle } from './Button/HeaderTitle'
+import { ChangeTheme } from './ChangeTheme'
 ---
 
 <header class='w-screen bg-stone-300 p-4 flex justify-between'>
   <h1>
     <HeaderTitle client:load />
   </h1>
-  <div class='self-center'>
+  <div class='self-center flex'>
     <AuthMenu client:load />
+    <div class='ml-2 flex items-center'>
+      <ChangeTheme client:load />
+    </div>
   </div>
 </header>
