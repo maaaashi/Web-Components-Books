@@ -10,7 +10,7 @@ export const SideMenuItem: FC<Props> = ({ title, id }) => {
     window.location.href = `/webcomponents/${id}`
   }
   return (
-    <button className='btn w-full justify-start' onClick={move}>
+    <button className='btn btn-secondary w-full justify-start' onClick={move}>
       {title}
     </button>
   )

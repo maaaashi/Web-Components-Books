@@ -130,7 +130,7 @@ export const SignUpForm = () => {
           {error}
         </div>
       ))}
-      <button className='btn btn-primary' type='submit'>
+      <button className='btn btn-primary border border-stone-800' type='submit'>
         新規登録
       </button>
 

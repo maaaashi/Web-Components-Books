@@ -78,7 +78,7 @@ export const WebComponentsFrame: FC<Props> = ({ id }) => {
 
   return (
     <>
-      <section className='flex items-center gap-3'>
+      <section className='flex items-center gap-3 bg-base-300'>
         <h2 className='font-bold text-2xl'>{component.name}</h2>
       </section>
       <section className='bg-stone-200 p-4'>

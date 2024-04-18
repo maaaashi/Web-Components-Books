@@ -99,7 +99,7 @@ export const SignInForm = () => {
         </div>
       ))}
 
-      <button className='btn btn-primary' type='submit'>
+      <button className='btn btn-primary border border-stone-800' type='submit'>
         ログイン
       </button>
 
