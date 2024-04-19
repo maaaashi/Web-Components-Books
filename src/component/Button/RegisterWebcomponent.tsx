@@ -21,7 +21,7 @@ export const RegisterWebcomponentButton = () => {
   return (
     <>
       {session && (
-        <button className='btn btn-primary w-full' onClick={openModal}>
+        <button className='btn btn-secondary w-full' onClick={openModal}>
           登録
         </button>
       )}

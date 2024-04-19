@@ -38,7 +38,7 @@ export const AuthMenu = () => {
             {session.user.user_metadata.name || session.user.email}さん
           </p>
           <button
-            className='btn btn-primary border border-stone-700 font-bold'
+            className='btn btn-secondary border border-stone-700 font-bold'
             onClick={signOut}
           >
             ログアウト
@@ -50,13 +50,13 @@ export const AuthMenu = () => {
     return (
       <div className='flex gap-2'>
         <button
-          className='btn btn-primary border border-stone-700 font-bold'
+          className='btn btn-secondary border border-stone-700 font-bold'
           onClick={signIn}
         >
           ログイン
         </button>
         <button
-          className='btn btn-primary border border-stone-700 font-bold'
+          className='btn btn-secondary border border-stone-700 font-bold'
           onClick={signUp}
         >
           新規登録
