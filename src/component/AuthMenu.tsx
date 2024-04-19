@@ -37,7 +37,10 @@ export const AuthMenu = () => {
           <p className='font-bold'>
             {session.user.user_metadata.name || session.user.email}さん
           </p>
-          <button className='btn' onClick={signOut}>
+          <button
+            className='btn btn-primary border border-stone-700 font-bold'
+            onClick={signOut}
+          >
             ログアウト
           </button>
         </div>
